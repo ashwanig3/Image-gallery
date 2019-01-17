@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -65,4 +65,20 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify -->
+
+# Image-Gallery
+
+Image Gallery is an album where you can upload your images. It is CRUD app where you can search images and delete it.
+
+## Getting Started
+
+1. First, you need to clone the repo https://github.com/ashwanig3/image-gallery
+2. In command line, go to the directory using cd image-gallery
+3. Then start the project using npm start
+
+## Build With
+
+* reactjs
+* redux
+* react-redux

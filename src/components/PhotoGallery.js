@@ -34,9 +34,6 @@ class PhotoGallery extends Component {
     newArr.splice(targetId, 1)
     localStorage.removeItem("img")
     localStorage.setItem("img", JSON.stringify(newArr))
-    // this.setState({
-    //   imgArr: newArr
-    // })
     this.props.dispatch(deleteImg(targetId))
   }
 
