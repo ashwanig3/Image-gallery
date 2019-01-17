@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoadImageFile from './LoadImageFile';
 import { connect } from 'react-redux';
+import { getAllImages } from '../acttions/actionCreators';
 
 class PhotoGallery extends Component {
   state = {
@@ -14,15 +15,11 @@ class PhotoGallery extends Component {
       wantToAdd: !this.state.wantToAdd
     })
   }
-  componentWillMount = () => {
+  componentDidMount = () => {
    const images = JSON.parse(localStorage.getItem("img"));
-   this.setState({imgArr: images})
+   this.props.dispatch(getAllImages(images))
+   
   }
-  // componentDidUpdate = () => {
-  //   this.setState({
-  //     currentImg: this.props.imgSrc
-  //   })
-  // }
 
   handleSearch = (e) => {
     const targetVal = e.target.value.toLowerCase();
@@ -46,6 +43,8 @@ class PhotoGallery extends Component {
 
   render() {
     const { imgArr, wantToAdd, currentImg } = this.state; 
+    const { imgSrc, msg } = this.props;
+    console.log(msg)
     return (
       <div>
         <div className="header-container">
@@ -58,30 +57,19 @@ class PhotoGallery extends Component {
         </form>
         <div className="img-library">
         {
-          imgArr && imgArr.map((img, i) => 
-          <div key={i}>
-            {
-             img.imgFile ? <img className="img-item" src={img.imgFile} alt="gallery" id="gallery-img" multiple="multiple" /> :
-             <img className="img-item" src={img.imgURL} alt="gallery" id="gallery-img" multiple="multiple" />
-
-            }
-
-            <button id={i} onClick={this.handleDelete}>Delete</button>
-          </div>)
-        }
-          {
-              currentImg && currentImg.map((img,i) => 
-              <div key={i}>
+          msg ? <p className="no-images-msg">{msg}</p> : (
+            imgSrc && imgSrc.map((img, i) => 
+            <div key={i}>
               {
-               img.imgFile ? <img className="img-item" src={img.imgFile} alt="gallery" id="gallery-img" multiple="multiple" /> :
-               <img className="img-item" src={img.imgURL} alt="gallery" id="gallery-img" multiple="multiple" />
-  
+              img.imgFile ? <img className="img-item" src={img.imgFile} alt="gallery" id="gallery-img" multiple="multiple" /> :
+              <img className="img-item" src={img.imgURL} alt="gallery" id="gallery-img" multiple="multiple" />
+
               }
-  
+
               <button id={i} onClick={this.handleDelete}>Delete</button>
-            </div>
-              )
-            }
+            </div>)
+          )
+        }
         </div>
         {
           wantToAdd ?  <LoadImageFile handleRemove={this.handleAdd} /> : <div></div>
@@ -94,9 +82,8 @@ class PhotoGallery extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    imgSrc: state.imgSrc
-  }
+  const {imgSrc, msg} = state;
+  return {imgSrc, msg}
 }
 
 export default connect(mapStateToProps)(PhotoGallery)

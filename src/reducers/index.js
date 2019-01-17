@@ -1,6 +1,7 @@
 const initState = {
     images: [],
     imgSrc: [],
+    msg : ''
 }
 
 export default function rootReducer(state= initState, action) {
@@ -15,6 +16,21 @@ export default function rootReducer(state= initState, action) {
             return {
                 imgSrc: [...state.imgSrc, action.img]
             }
+        }
+
+        case 'GET_IMAGES' : {
+            if(!action.images) {
+                return {
+                    msg: "No images Available.Please Upload.",
+                    imgSrc : []
+                }
+            } else {
+                return {
+                    imgSrc: [...action.images]
+                }
+
+            }
+            
         }
         default:
         return state;
