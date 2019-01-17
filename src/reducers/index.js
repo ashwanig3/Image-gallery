@@ -32,6 +32,19 @@ export default function rootReducer(state= initState, action) {
             }
             
         }
+        case 'DELETE_IMG': {
+            state.imgSrc.splice(action.id, 1)
+            return {
+                imgSrc: [...state.imgSrc]
+            }
+        }
+        case 'SEARCH_IMG': {
+            const query = action.query;
+            const filteredArr = state.imgSrc.filter(img => img.imgInfo.toLowerCase().includes(query))
+            return {
+                imgSrc: filteredArr
+            }
+        }
         default:
         return state;
     }

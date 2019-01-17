@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import LoadImageFile from './LoadImageFile';
 import { connect } from 'react-redux';
-import { getAllImages } from '../acttions/actionCreators';
+import { getAllImages, deleteImg, searchImg } from '../acttions/actionCreators';
+
 
 class PhotoGallery extends Component {
   state = {
@@ -23,10 +24,7 @@ class PhotoGallery extends Component {
 
   handleSearch = (e) => {
     const targetVal = e.target.value.toLowerCase();
-    const filteredArr = this.state.imgArr.filter(img => img.imgInfo.toLowerCase().includes(targetVal))
-    this.setState({
-      imgArr: filteredArr
-    })
+    this.props.dispatch(searchImg(targetVal))
     
   }
 
@@ -36,9 +34,10 @@ class PhotoGallery extends Component {
     newArr.splice(targetId, 1)
     localStorage.removeItem("img")
     localStorage.setItem("img", JSON.stringify(newArr))
-    this.setState({
-      imgArr: newArr
-    })
+    // this.setState({
+    //   imgArr: newArr
+    // })
+    this.props.dispatch(deleteImg(targetId))
   }
 
   render() {

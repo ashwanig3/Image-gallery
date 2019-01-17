@@ -19,3 +19,17 @@ export function getAllImages(images) {
         images,
     }
 }
+
+export function deleteImg(id) {
+    return {
+        type: 'DELETE_IMG',
+        id
+    }
+}
+
+export function searchImg(query) {
+    return {
+        type: 'SEARCH_IMG',
+        query
+    }
+}
